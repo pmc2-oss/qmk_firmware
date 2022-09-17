@@ -38,6 +38,9 @@
 #    define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #endif
 
+/* Amount of time to sleep when disabling LEDs. Unclear purpose. */
+#define RGBLIGHT_SET_DELAY_MS 1
+
 #ifdef RGBLIGHT_SPLIT
 /* for split keyboard */
 #    define RGBLIGHT_SPLIT_SET_CHANGE_MODE rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_MODE
@@ -410,7 +413,7 @@ void rgblight_disable(void) {
     dprintf("rgblight disable [EEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
     rgblight_timer_disable();
     RGBLIGHT_SPLIT_SET_CHANGE_MODE;
-    wait_ms(50);
+    wait_ms(RGBLIGHT_SET_DELAY_MS);
     rgblight_set();
 }
 
@@ -419,7 +422,7 @@ void rgblight_disable_noeeprom(void) {
     dprintf("rgblight disable [NOEEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
     rgblight_timer_disable();
     RGBLIGHT_SPLIT_SET_CHANGE_MODE;
-    wait_ms(50);
+    wait_ms(RGBLIGHT_SET_DELAY_MS);
     rgblight_set();
 }
 
